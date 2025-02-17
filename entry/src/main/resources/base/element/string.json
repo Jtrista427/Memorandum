@@ -11,6 +11,18 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "all_memo",
+      "value": "全部备忘"
+    },
+    {
+      "name": "memo_num",
+      "value": "%d条备忘"
+    },
+    {
+      "name": "search",
+      "value": "搜索"
     }
   ]
 }

@@ -3,6 +3,18 @@
     {
       "name": "start_window_background",
       "value": "#FFFFFF"
+    },
+    {
+      "name": "light_gray",
+      "value": "#FFF5F2F2"
+    },
+    {
+      "name": "search_gray",
+      "value": "#E9E7E7"
+    },
+    {
+      "name": "search_close",
+      "value": "#FF929191"
     }
   ]
 }
