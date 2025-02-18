@@ -23,6 +23,13 @@
     {
       "name": "search",
       "value": "搜索"
+    },
+    {
+      "name": "title",
+      "value": "标题"
+    },{
+      "name": "default",
+      "value": "默认"
     }
   ]
 }

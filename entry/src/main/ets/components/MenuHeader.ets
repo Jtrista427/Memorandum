@@ -1,7 +1,9 @@
-import { MenuHeaderType, menuHeaderData, DirectionType } from '../../constant/MenuHeaderData'
+import { MenuHeaderType, DirectionType } from '../constant/MenuHeaderData'
 
 @Component
 export struct MenuHeader {
+  headerData: MenuHeaderType[] | undefined
+
   @Builder
   headerItem(item: MenuHeaderType) {
     Row() {
@@ -24,7 +26,7 @@ export struct MenuHeader {
   @Builder
   leftContent() {
     Row({ space: 10 }) {
-      ForEach(menuHeaderData, (item: MenuHeaderType) => {
+      ForEach(this.headerData, (item: MenuHeaderType) => {
         if (item.direction === DirectionType.left) {
           this.headerItem(item)
         }
@@ -35,7 +37,7 @@ export struct MenuHeader {
   @Builder
   rightContent() {
     Row({ space: 10 }) {
-      ForEach(menuHeaderData, (item: MenuHeaderType) => {
+      ForEach(this.headerData, (item: MenuHeaderType) => {
         if (item.direction === DirectionType.right) {
           this.headerItem(item)
         }

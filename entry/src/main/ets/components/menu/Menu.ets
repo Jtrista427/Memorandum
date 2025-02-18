@@ -1,12 +1,6 @@
-import { MenuHeader } from '../Menu/MenuHeader'
-
-interface FileType {
-  id: number
-  title: string
-  content: string
-  time: string
-  typeColor: string | Resource | Color
-}
+import { MenuHeader } from '../MenuHeader'
+import { menuHeaderData } from '../../constant/MenuHeaderData'
+import { FileType } from '../../constant/type'
 
 @Component
 export struct MemoMenu {
@@ -15,7 +9,8 @@ export struct MemoMenu {
     title: '啥也',
     content: '你哈哈哈哈哈',
     time: '2021-01-01',
-    typeColor: Color.Red
+    typeColor: Color.Red,
+    folderName:'cniaqochnoqchn'
   }]
 
   @Builder
@@ -71,7 +66,7 @@ export struct MemoMenu {
 
   build() {
     Column({ space: 10 }) {
-      MenuHeader()
+      MenuHeader({ headerData: menuHeaderData })
       this.menuTitle()
 
       Row() {

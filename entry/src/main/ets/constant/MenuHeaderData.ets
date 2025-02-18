@@ -8,8 +8,13 @@ export interface MenuHeaderType {
 export enum HeaderListType {
   CONTROL = 0,
   NEWFILE,
-  DISPALY,
+  DISPLAY,
   MOREMENU,
+  EXPAND,
+  SHARE,
+  STAR,
+  DELETE,
+  CONTENT_MOREMENU
 }
 
 export enum DirectionType {
@@ -29,13 +34,42 @@ export const menuHeaderData: MenuHeaderType[] = [{
     defaultImageSrc: $r('app.media.add_file'),
   },
   {
-    id: HeaderListType.DISPALY,
+    id: HeaderListType.DISPLAY,
     direction: DirectionType.right,
     defaultImageSrc: $r('app.media.blocks'),
     changedImageSrc: $r('app.media.menu'),
   },
   {
     id: HeaderListType.MOREMENU,
+    direction: DirectionType.right,
+    defaultImageSrc: $r('app.media.more_menu'),
+  },
+]
+
+export const contentHeaderData: MenuHeaderType[] = [{
+  id: HeaderListType.EXPAND,
+  direction: DirectionType.left,
+  defaultImageSrc: $r('app.media.fold'),
+  changedImageSrc: $r('app.media.unfold'),
+},
+  {
+    id: HeaderListType.SHARE,
+    direction: DirectionType.right,
+    defaultImageSrc: $r('app.media.share'),
+  },
+  {
+    id: HeaderListType.STAR,
+    direction: DirectionType.right,
+    defaultImageSrc: $r('app.media.star'),
+    changedImageSrc: $r("app.media.yellow_star"),
+  },
+  {
+    id: HeaderListType.DELETE,
+    direction: DirectionType.right,
+    defaultImageSrc: $r('app.media.delete'),
+  },
+  {
+    id: HeaderListType.CONTENT_MOREMENU,
     direction: DirectionType.right,
     defaultImageSrc: $r('app.media.more_menu'),
   },
