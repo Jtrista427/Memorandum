@@ -2,11 +2,12 @@ import { MenuHeader } from '../MenuHeader'
 import { menuHeaderData } from '../../constant/MenuHeaderData'
 import { FileType } from '../../constant/type'
 import { MemoKVStore } from '../../model/MemoKVStore'
+import { mViewModel } from '../../model/viewmodel/mViewModel'
 
 @Component
 export struct MemoMenu {
   @Consume MemoKVInstance: MemoKVStore
-  @Prop fileList: FileType[] | undefined
+  @ObjectLink memoViewModel: mViewModel | undefined
 
   @Builder
   menuTitle() {
@@ -14,7 +15,7 @@ export struct MemoMenu {
       .fontSize(26)
       .width('100%')
       .fontWeight(FontWeight.Bold)
-    Text($r('app.string.memo_num', this.fileList?.length))
+    Text($r('app.string.memo_num', this.memoViewModel?.fileList?.length))
       .fontSize(14)
       .width('100%')
   }
@@ -43,7 +44,7 @@ export struct MemoMenu {
           .width('100%')
       }
       .width('100%')
-      .backgroundColor(Color.Yellow)
+      .backgroundColor(file.id === this.memoViewModel?.curFile?.id ? $r('app.color.cur_item_color') : Color.White)
       .height(60)
       .borderRadius(20)
       .padding({
@@ -51,6 +52,8 @@ export struct MemoMenu {
         right: 10,
         top: 5,
         bottom: 5
+      })
+      .onClick(() => {
       })
     }
     .width('100%')
@@ -61,7 +64,7 @@ export struct MemoMenu {
 
   build() {
     Column({ space: 10 }) {
-      MenuHeader({ headerData: menuHeaderData })
+      MenuHeader({ headerData: menuHeaderData, memoViewModel: this.memoViewModel })
       this.menuTitle()
 
       Row() {
@@ -90,7 +93,7 @@ export struct MemoMenu {
       .borderRadius(20)
 
       List() {
-        ForEach(this.fileList, (item: FileType) => {
+        ForEach(this.memoViewModel?.fileList, (item: FileType) => {
           ListItem() {
             this.FileItem(item)
           }

@@ -1,6 +1,6 @@
 export interface FileType {
   id: number
-  title: string
+  title: string | Resource
   content: string
   time: string
   typeColor: string | Resource | Color

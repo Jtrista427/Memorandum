@@ -15,6 +15,14 @@
     {
       "name": "search_close",
       "value": "#FF929191"
+    },
+    {
+      "name": "cur_item_color",
+      "value": "#FFF3E58E"
+    },
+    {
+      "name": "default_folder_color",
+      "value": "#FFE05F09"
     }
   ]
 }

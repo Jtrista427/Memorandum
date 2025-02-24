@@ -4,13 +4,14 @@ import { MemoKVStore } from '../model/MemoKVStore'
 import { FileContent } from '../components/content/FileContent'
 import { FileType } from '../constant/type'
 import { JSON } from '@kit.ArkTS';
+import { mViewModel } from '../model/viewmodel/mViewModel'
 
 @Entry
 @Component
 struct Index {
   @State fullMode: boolean = false;
   @Provide MemoKVInstance: MemoKVStore | undefined = undefined
-  @State fileList: FileType[] | undefined = undefined
+  @Provide memoViewModel: mViewModel = new mViewModel()
 
   aboutToAppear(): void {
     const KVManager = new KVStore(getContext())
@@ -26,7 +27,10 @@ struct Index {
       }]))
       this.MemoKVInstance?.get('mFileList').then((res) => {
         if (typeof res === 'string') {
-          this.fileList = JSON.parse(res) as FileType[]
+          this.memoViewModel.fileList = JSON.parse(res) as FileType[]
+          if (this.memoViewModel.fileList?.length) {
+            this.memoViewModel.curFile = this.memoViewModel.fileList[0]
+          }
         }
       })
     })
@@ -34,9 +38,9 @@ struct Index {
 
   build() {
     Row() {
-      MemoMenu({ fileList: this.fileList })
+      MemoMenu({ memoViewModel: this.memoViewModel })
         .width('40%')
-      FileContent({ fileData: this.fileList?.[0] })
+      FileContent({ memoViewModel: this.memoViewModel })
         .width('60%')
     }
     .width('100%')

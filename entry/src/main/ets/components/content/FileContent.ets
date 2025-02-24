@@ -1,22 +1,26 @@
 import { MenuHeader } from '../MenuHeader'
 import { contentHeaderData } from '../../constant/MenuHeaderData'
-import { FileType } from '../../constant/type'
+import { mViewModel } from '../../model/viewmodel/mViewModel'
 
 @Component
 export struct FileContent {
-  fileData: FileType | undefined
+  @ObjectLink memoViewModel: mViewModel | undefined
 
   build() {
     Column({ space: 15 }) {
       MenuHeader({ headerData: contentHeaderData })
-      TextArea({ text: this.fileData?.title ?? $r('app.string.title') })
+      TextArea({
+        placeholder: $r('app.string.title'),
+        text: this.memoViewModel?.curFile?.title
+      })
         .height(40)
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
         .backgroundColor(Color.White)
+        .padding({ left: 5 })
       Row({ space: 5 }) {
         Row() {
-          Text(this.fileData?.folderName ?? $r('app.string.default'))
+          Text(this.memoViewModel?.curFile?.folderName ?? $r('app.string.default'))
             .fontColor(Color.White)
           Image($r("app.media.caret_down"))
             .width(10)
@@ -26,16 +30,17 @@ export struct FileContent {
         .padding(5)
         .height(30)
         .borderRadius(10)
-        .backgroundColor(this.fileData?.typeColor ?? Color.Yellow)
+        .backgroundColor(this.memoViewModel?.curFile?.typeColor ?? Color.Yellow)
 
-        Text(this.fileData?.time)
+        Text(this.memoViewModel?.curFile?.time)
 
       }
       .width('100%')
       .justifyContent(FlexAlign.Start)
 
-      TextArea({ text: this.fileData?.content })
+      TextArea({ text: this.memoViewModel?.curFile?.content })
         .backgroundColor(Color.White)
+        .padding({ left: 5 })
     }
     .width('100%')
     .height('100%')

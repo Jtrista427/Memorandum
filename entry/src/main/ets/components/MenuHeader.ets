@@ -1,8 +1,10 @@
-import { MenuHeaderType, DirectionType } from '../constant/MenuHeaderData'
+import { MenuHeaderType, DirectionType, HeaderListType } from '../constant/MenuHeaderData'
+import { mViewModel } from '../model/viewmodel/mViewModel'
 
 @Component
 export struct MenuHeader {
   headerData: MenuHeaderType[] | undefined
+  memoViewModel: mViewModel | undefined
 
   @Builder
   headerItem(item: MenuHeaderType) {
@@ -18,7 +20,10 @@ export struct MenuHeader {
     .borderRadius(18)
     .backgroundColor($r('app.color.search_gray'))
     .onClick(() => {
-      // TODO
+      // 如果点击加号，新建一个备忘录
+      if (item.id === HeaderListType.NEWFILE) {
+        this.memoViewModel?.newMemo()
+      }
     })
 
   }
