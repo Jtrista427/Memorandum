@@ -1,17 +1,12 @@
 import { MenuHeader } from '../MenuHeader'
 import { menuHeaderData } from '../../constant/MenuHeaderData'
 import { FileType } from '../../constant/type'
+import { MemoKVStore } from '../../model/MemoKVStore'
 
 @Component
 export struct MemoMenu {
-  @Prop fileList: FileType[] = [{
-    id: 1,
-    title: '啥也',
-    content: '你哈哈哈哈哈',
-    time: '2021-01-01',
-    typeColor: Color.Red,
-    folderName:'cniaqochnoqchn'
-  }]
+  @Consume MemoKVInstance: MemoKVStore
+  @Prop fileList: FileType[] | undefined
 
   @Builder
   menuTitle() {
@@ -19,7 +14,7 @@ export struct MemoMenu {
       .fontSize(26)
       .width('100%')
       .fontWeight(FontWeight.Bold)
-    Text($r('app.string.memo_num', this.fileList.length))
+    Text($r('app.string.memo_num', this.fileList?.length))
       .fontSize(14)
       .width('100%')
   }
