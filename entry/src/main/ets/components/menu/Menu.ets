@@ -6,7 +6,6 @@ import { mViewModel } from '../../model/viewmodel/mViewModel'
 
 @Component
 export struct MemoMenu {
-  @Consume MemoKVInstance: MemoKVStore
   @ObjectLink memoViewModel: mViewModel | undefined
 
   @Builder
@@ -64,7 +63,7 @@ export struct MemoMenu {
 
   build() {
     Column({ space: 10 }) {
-      MenuHeader({ headerData: menuHeaderData, memoViewModel: this.memoViewModel })
+      MenuHeader({ headerData: menuHeaderData })
       this.menuTitle()
 
       Row() {

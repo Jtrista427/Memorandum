@@ -1,23 +1,42 @@
 import { MenuHeader } from '../MenuHeader'
-import { contentHeaderData } from '../../constant/MenuHeaderData'
+import { contentHeaderReadData, contentHeaderEditData } from '../../constant/MenuHeaderData'
 import { mViewModel } from '../../model/viewmodel/mViewModel'
 
 @Component
 export struct FileContent {
-  @ObjectLink memoViewModel: mViewModel | undefined
+  @ObjectLink memoViewModel: mViewModel
+  private titleController: TextAreaController = new TextAreaController()
+  private contentController: TextAreaController = new TextAreaController()
 
   build() {
     Column({ space: 15 }) {
-      MenuHeader({ headerData: contentHeaderData })
+      if (this.memoViewModel.isEdit) {
+        MenuHeader({ headerData: contentHeaderEditData })
+      } else {
+        MenuHeader({ headerData: contentHeaderReadData })
+      }
+
+      Divider()
+        .strokeWidth(1)
+        .width('98%')
       TextArea({
         placeholder: $r('app.string.title'),
-        text: this.memoViewModel?.curFile?.title
+        text: this.memoViewModel?.curFile?.title,
+        controller: this.titleController
       })
         .height(40)
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
         .backgroundColor(Color.White)
         .padding({ left: 5 })
+        .onFocus(() => {
+          if (this.memoViewModel && !this.memoViewModel.isEdit) {
+            this.memoViewModel.isEdit = true
+          }
+        })
+        .onChange((value) => {
+          this.memoViewModel?.curFile && (this.memoViewModel.curFile.title = value)
+        })
       Row({ space: 5 }) {
         Row() {
           Text(this.memoViewModel?.curFile?.folderName ?? $r('app.string.default'))
@@ -38,9 +57,18 @@ export struct FileContent {
       .width('100%')
       .justifyContent(FlexAlign.Start)
 
-      TextArea({ text: this.memoViewModel?.curFile?.content })
+      TextArea({ text: this.memoViewModel?.curFile?.content, controller: this.contentController })
         .backgroundColor(Color.White)
         .padding({ left: 5 })
+        .height('100%')
+        .onFocus(() => {
+          if (this.memoViewModel && !this.memoViewModel.isEdit) {
+            this.memoViewModel.isEdit = true
+          }
+        })
+        .onChange((value) => {
+          this.memoViewModel?.curFile && (this.memoViewModel.curFile.content = value)
+        })
     }
     .width('100%')
     .height('100%')

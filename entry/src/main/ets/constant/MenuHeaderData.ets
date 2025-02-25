@@ -14,7 +14,8 @@ export enum HeaderListType {
   SHARE,
   STAR,
   DELETE,
-  CONTENT_MOREMENU
+  CONTENT_MOREMENU,
+  SAVE
 }
 
 export enum DirectionType {
@@ -46,7 +47,7 @@ export const menuHeaderData: MenuHeaderType[] = [{
   },
 ]
 
-export const contentHeaderData: MenuHeaderType[] = [{
+export const contentHeaderReadData: MenuHeaderType[] = [{
   id: HeaderListType.EXPAND,
   direction: DirectionType.left,
   defaultImageSrc: $r('app.media.fold'),
@@ -72,5 +73,18 @@ export const contentHeaderData: MenuHeaderType[] = [{
     id: HeaderListType.CONTENT_MOREMENU,
     direction: DirectionType.right,
     defaultImageSrc: $r('app.media.more_menu'),
+  },
+]
+
+export const contentHeaderEditData: MenuHeaderType[] = [{
+  id: HeaderListType.EXPAND,
+  direction: DirectionType.left,
+  defaultImageSrc: $r('app.media.fold'),
+  changedImageSrc: $r('app.media.unfold'),
+},
+  {
+    id: HeaderListType.SAVE,
+    direction: DirectionType.right,
+    defaultImageSrc: $r('app.media.save'),
   },
 ]

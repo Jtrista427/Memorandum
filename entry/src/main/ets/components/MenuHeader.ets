@@ -4,7 +4,7 @@ import { mViewModel } from '../model/viewmodel/mViewModel'
 @Component
 export struct MenuHeader {
   headerData: MenuHeaderType[] | undefined
-  memoViewModel: mViewModel | undefined
+  @Consume memoViewModel: mViewModel | undefined
 
   @Builder
   headerItem(item: MenuHeaderType) {
@@ -23,6 +23,8 @@ export struct MenuHeader {
       // 如果点击加号，新建一个备忘录
       if (item.id === HeaderListType.NEWFILE) {
         this.memoViewModel?.newMemo()
+      } else if (item.id === HeaderListType.SAVE) {
+        this.memoViewModel?.saveFile()
       }
     })
 

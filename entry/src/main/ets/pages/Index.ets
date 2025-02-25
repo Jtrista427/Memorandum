@@ -10,13 +10,14 @@ import { mViewModel } from '../model/viewmodel/mViewModel'
 @Component
 struct Index {
   @State fullMode: boolean = false;
-  @Provide MemoKVInstance: MemoKVStore | undefined = undefined
+  MemoKVInstance: MemoKVStore | undefined = undefined
   @Provide memoViewModel: mViewModel = new mViewModel()
 
   aboutToAppear(): void {
     const KVManager = new KVStore(getContext())
     KVManager.getKVStore('Memo').then((res) => {
       this.MemoKVInstance = new MemoKVStore(res)
+      this.memoViewModel.initKVStore(this.MemoKVInstance)
       this.MemoKVInstance?.put('mFileList', JSON.stringify([{
         id: 1,
         title: '啥也',
