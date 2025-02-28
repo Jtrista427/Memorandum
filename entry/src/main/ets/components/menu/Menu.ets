@@ -1,12 +1,13 @@
 import { MenuHeader } from '../MenuHeader'
 import { menuHeaderData } from '../../constant/MenuHeaderData'
 import { FileType } from '../../constant/type'
-import { MemoKVStore } from '../../model/MemoKVStore'
 import { mViewModel } from '../../model/viewmodel/mViewModel'
+import { MemoMenuItem } from '../../model/MemoMenuItem'
 
 @Component
 export struct MemoMenu {
   @ObjectLink memoViewModel: mViewModel | undefined
+  headerData: MemoMenuItem[] | undefined
 
   @Builder
   menuTitle() {
@@ -55,6 +56,7 @@ export struct MemoMenu {
       .onClick(() => {
       })
     }
+    .margin({ bottom: 10 })
     .width('100%')
     .borderRadius(20)
     .backgroundColor(Color.White)
@@ -63,7 +65,7 @@ export struct MemoMenu {
 
   build() {
     Column({ space: 10 }) {
-      MenuHeader({ headerData: menuHeaderData })
+      MenuHeader({ headerData: this.headerData })
       this.menuTitle()
 
       Row() {
@@ -97,8 +99,10 @@ export struct MemoMenu {
             this.FileItem(item)
           }
         })
-
-      }.width('100%')
+      }
+      .scrollBar(BarState.Off)
+      .width('100%')
+      .height('100%')
       .layoutWeight(1)
     }
     .padding({ left: 20, right: 10, top: 15 })

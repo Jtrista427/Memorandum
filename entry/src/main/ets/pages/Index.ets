@@ -5,6 +5,8 @@ import { FileContent } from '../components/content/FileContent'
 import { FileType } from '../constant/type'
 import { JSON } from '@kit.ArkTS';
 import { mViewModel } from '../model/viewmodel/mViewModel'
+import { menuToolManager } from '../model/viewmodel/menuToolManager'
+import { menuHeaderData, contentHeaderReadData, contentHeaderEditData } from '../constant/MenuHeaderData'
 
 @Entry
 @Component
@@ -12,6 +14,7 @@ struct Index {
   @State fullMode: boolean = false;
   MemoKVInstance: MemoKVStore | undefined = undefined
   @Provide memoViewModel: mViewModel = new mViewModel()
+  menuToolManager: menuToolManager = new menuToolManager()
 
   aboutToAppear(): void {
     const KVManager = new KVStore(getContext())
@@ -35,13 +38,18 @@ struct Index {
         }
       })
     })
+    this.menuToolManager.init(this.memoViewModel)
   }
 
   build() {
     Row() {
-      MemoMenu({ memoViewModel: this.memoViewModel })
+      MemoMenu({ memoViewModel: this.memoViewModel, headerData: this.menuToolManager.initMenuData(menuHeaderData) })
         .width('40%')
-      FileContent({ memoViewModel: this.memoViewModel })
+      FileContent({
+        memoViewModel: this.memoViewModel,
+        editMenuData: this.menuToolManager.initMenuData(contentHeaderEditData),
+        readMenuData: this.menuToolManager.initMenuData(contentHeaderReadData)
+      })
         .width('60%')
     }
     .width('100%')

@@ -1,15 +1,16 @@
-import { MenuHeaderType, DirectionType, HeaderListType } from '../constant/MenuHeaderData'
+import { HeaderListType } from '../constant/MenuHeaderData'
+import { MemoMenuItem, DirectionType, } from '../model/MemoMenuItem'
 import { mViewModel } from '../model/viewmodel/mViewModel'
 
 @Component
 export struct MenuHeader {
-  headerData: MenuHeaderType[] | undefined
+  headerData: MemoMenuItem[] | undefined
   @Consume memoViewModel: mViewModel | undefined
 
   @Builder
-  headerItem(item: MenuHeaderType) {
+  headerItem(item: MemoMenuItem) {
     Row() {
-      Image(item.defaultImageSrc)
+      Image(item.currentImageSrc)
         .width(22)
         .height(22)
     }
@@ -19,21 +20,18 @@ export struct MenuHeader {
     .height(36)
     .borderRadius(18)
     .backgroundColor($r('app.color.search_gray'))
+    .opacity(item.isActive ? 1 : 0.3)
     .onClick(() => {
-      // 如果点击加号，新建一个备忘录
-      if (item.id === HeaderListType.NEWFILE) {
-        this.memoViewModel?.newMemo()
-      } else if (item.id === HeaderListType.SAVE) {
-        this.memoViewModel?.saveFile()
+      if (item.isActive && item.onClick) {
+        item.onClick()
       }
     })
-
   }
 
   @Builder
   leftContent() {
     Row({ space: 10 }) {
-      ForEach(this.headerData, (item: MenuHeaderType) => {
+      ForEach(this.headerData, (item: MemoMenuItem) => {
         if (item.direction === DirectionType.left) {
           this.headerItem(item)
         }
@@ -44,7 +42,7 @@ export struct MenuHeader {
   @Builder
   rightContent() {
     Row({ space: 10 }) {
-      ForEach(this.headerData, (item: MenuHeaderType) => {
+      ForEach(this.headerData, (item: MemoMenuItem) => {
         if (item.direction === DirectionType.right) {
           this.headerItem(item)
         }

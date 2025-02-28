@@ -6,8 +6,9 @@ import { MemoKVStore } from '../../model/MemoKVStore'
 export class mViewModel {
   curFile: FileType | undefined = undefined
   fileList: FileType[] = []
-  isEdit: boolean = false
+  isEditMode: boolean = false // 右侧面板是否进入编辑模式
   MemoKVInstance: MemoKVStore | undefined = undefined
+  isNewFile: boolean = false
 
   initKVStore(MemoKVInstance: MemoKVStore) {
     this.MemoKVInstance = this.MemoKVInstance
@@ -21,16 +22,24 @@ export class mViewModel {
       content: '',
       time: GetDatetime(Date.now()),
       typeColor: $r('app.color.default_folder_color'),
-      folderName: $r('app.string.default')
+      folderName: $r('app.string.default'),
     }
     this.fileList?.push(this.curFile)
+    this.isNewFile = true
   }
 
-  saveFile() {
-    this.isEdit = false
+  editFile() {
+    if (this.isNewFile) {
+      this.isNewFile = false
+    }
+  }
+
+  saveFileToStore() {
     const isExit = this.fileList.findIndex((item) => {
       return item.id === this.curFile!.id
     })
+    // 更新保存时间
+    this.curFile!.time = GetDatetime(Date.now())
     if (isExit !== -1) {
       this.fileList[isExit] = this.curFile!
     } else {

@@ -1,27 +1,26 @@
+import { DirectionType, MemoMenuItem } from '../model/MemoMenuItem'
+
 export interface MenuHeaderType {
-  id: number
+  id: HeaderListType
   direction: DirectionType
   defaultImageSrc: string | Resource
   changedImageSrc?: string | Resource
+  isActive?: boolean
 }
 
 export enum HeaderListType {
   CONTROL = 0,
-  NEWFILE,
+  NEW_FILE,
   DISPLAY,
-  MOREMENU,
+  MORE_MENU,
   EXPAND,
   SHARE,
   STAR,
   DELETE,
-  CONTENT_MOREMENU,
+  CONTENT_MORE_MENU,
   SAVE
 }
 
-export enum DirectionType {
-  left = 0,
-  right
-}
 
 export const menuHeaderData: MenuHeaderType[] = [{
   id: HeaderListType.CONTROL,
@@ -30,7 +29,7 @@ export const menuHeaderData: MenuHeaderType[] = [{
   changedImageSrc: $r('app.media.unfold_menu'),
 },
   {
-    id: HeaderListType.NEWFILE,
+    id: HeaderListType.NEW_FILE,
     direction: DirectionType.right,
     defaultImageSrc: $r('app.media.add_file'),
   },
@@ -41,7 +40,7 @@ export const menuHeaderData: MenuHeaderType[] = [{
     changedImageSrc: $r('app.media.menu'),
   },
   {
-    id: HeaderListType.MOREMENU,
+    id: HeaderListType.MORE_MENU,
     direction: DirectionType.right,
     defaultImageSrc: $r('app.media.more_menu'),
   },
@@ -70,7 +69,7 @@ export const contentHeaderReadData: MenuHeaderType[] = [{
     defaultImageSrc: $r('app.media.delete'),
   },
   {
-    id: HeaderListType.CONTENT_MOREMENU,
+    id: HeaderListType.CONTENT_MORE_MENU,
     direction: DirectionType.right,
     defaultImageSrc: $r('app.media.more_menu'),
   },
