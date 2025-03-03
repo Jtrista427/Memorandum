@@ -36,7 +36,8 @@ export class MenuToolManager {
 
   handleMenuClick(id: number): () => void {
     return () => {
-      if (this.mViewModel) {
+      const item = this.menuToolMap.get(id)
+      if (this.mViewModel && item) {
         switch (id) {
           case HeaderListType.NEW_FILE:
             this.mViewModel.newMemo()
@@ -45,10 +46,14 @@ export class MenuToolManager {
             this.mViewModel.saveFileToStore()
           case HeaderListType.EXPAND:
             this.mViewModel.isExpand = !this.mViewModel.isExpand
-            this.menuToolMap.get(id)!.currentImageSrc =
-              this.mViewModel.isExpand ? this.menuToolMap.get(id)!.changedImageSrc! :
-              this.menuToolMap.get(id)!.defaultImageSrc
-
+            item.currentImageSrc =
+              this.mViewModel.isExpand ? item.changedImageSrc! :
+              item.defaultImageSrc
+          case HeaderListType.STAR:
+            this.mViewModel.curFile!.isStar = !this.mViewModel.curFile!.isStar
+            item.currentImageSrc =
+              this.mViewModel.curFile!.isStar ? item.changedImageSrc! :
+              item.defaultImageSrc
         }
       }
     }

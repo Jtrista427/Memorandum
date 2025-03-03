@@ -5,4 +5,5 @@ export interface FileType {
   time: string
   typeColor: string | Resource | Color
   folderName: string | Resource
+  isStar?: boolean
 }

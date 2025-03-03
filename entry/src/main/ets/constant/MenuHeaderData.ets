@@ -66,7 +66,7 @@ export const contentHeaderReadData: MenuHeaderType[] = [{
     direction: DirectionType.right,
     defaultImageSrc: $r('app.media.star'),
     changedImageSrc: $r("app.media.yellow_star"),
-    isActive: false
+    isActive: true
   },
   {
     id: HeaderListType.DELETE,

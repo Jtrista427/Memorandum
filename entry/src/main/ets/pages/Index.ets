@@ -7,6 +7,7 @@ import { JSON } from '@kit.ArkTS';
 import { mViewModel } from '../model/viewmodel/mViewModel'
 import { MenuToolManager } from '../model/viewmodel/menuToolManager'
 import { HeaderListType } from '../constant/MenuHeaderData'
+import { MemoFileItem } from '../model/MemoFileItem'
 
 @Entry
 @Component
@@ -37,7 +38,10 @@ struct Index {
       }]))
       this.MemoKVInstance?.get('mFileList').then((res) => {
         if (typeof res === 'string') {
-          this.memoViewModel.fileList = JSON.parse(res) as FileType[]
+         const data = JSON.parse(res) as FileType[]
+          this.memoViewModel.fileList = data.map((item) => {
+            return new MemoFileItem(item)
+          })
           if (this.memoViewModel.fileList?.length) {
             this.memoViewModel.curFile = this.memoViewModel.fileList[0]
           }

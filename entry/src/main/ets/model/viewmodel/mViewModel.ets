@@ -2,11 +2,12 @@ import { FileType } from '../../constant/type'
 import { GetDatetime } from '../../utils/timeHandler'
 import { MemoKVStore } from '../../model/MemoKVStore'
 import { inputMethod } from '@kit.IMEKit';
+import { MemoFileItem } from '../MemoFileItem'
 
 @Observed
 export class mViewModel {
-  curFile: FileType | undefined = undefined
-  fileList: FileType[] = []
+  curFile: MemoFileItem | undefined = undefined
+  fileList: MemoFileItem[] = []
   isEditMode: boolean = false // 右侧面板是否进入编辑模式
   MemoKVInstance: MemoKVStore | undefined = undefined
   isNewFile: boolean = false
@@ -19,14 +20,14 @@ export class mViewModel {
   // 新建一个备忘录
   newMemo() {
     if (!this.isNewFile) {
-      this.curFile = {
+      this.curFile = new MemoFileItem({
         id: (this.fileList?.length ?? 0) + 1,
         title: $r('app.string.title'),
         content: '',
         time: GetDatetime(Date.now()),
         typeColor: $r('app.color.default_folder_color'),
         folderName: $r('app.string.default'),
-      }
+      })
       this.fileList?.push(this.curFile)
       this.isNewFile = true
     }
@@ -65,7 +66,7 @@ export class mViewModel {
    * 切换当前编辑的备忘录
    * @param file
    */
-  changeCurFile(file: FileType) {
+  changeCurFile(file: MemoFileItem) {
     // 点击切换的时候保存当前备忘录
     if (!this.isNewFile) {
       this.saveFileToStore()

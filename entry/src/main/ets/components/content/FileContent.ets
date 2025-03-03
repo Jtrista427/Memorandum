@@ -46,6 +46,7 @@ export struct FileContent {
         Row() {
           Text(this.memoViewModel?.curFile?.folderName ?? $r('app.string.default'))
             .fontColor(Color.White)
+            .margin({ right: 5 })
           Image($r("app.media.caret_down"))
             .width(10)
             .height(10)
