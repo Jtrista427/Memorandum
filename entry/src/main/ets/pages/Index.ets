@@ -5,16 +5,24 @@ import { FileContent } from '../components/content/FileContent'
 import { FileType } from '../constant/type'
 import { JSON } from '@kit.ArkTS';
 import { mViewModel } from '../model/viewmodel/mViewModel'
-import { menuToolManager } from '../model/viewmodel/menuToolManager'
-import { menuHeaderData, contentHeaderReadData, contentHeaderEditData } from '../constant/MenuHeaderData'
+import { MenuToolManager } from '../model/viewmodel/menuToolManager'
+import {
+  HeaderListType
+} from '../constant/MenuHeaderData'
 
 @Entry
 @Component
 struct Index {
   @State fullMode: boolean = false;
   MemoKVInstance: MemoKVStore | undefined = undefined
-  @Provide memoViewModel: mViewModel = new mViewModel()
-  menuToolManager: menuToolManager = new menuToolManager()
+  @Provide @Watch('onMViewModelChange') memoViewModel: mViewModel = new mViewModel()
+  @State menuToolManager: MenuToolManager = new MenuToolManager()
+
+  onMViewModelChange() {
+    if (this.menuToolManager?.menuToolMap.size) {
+      this.menuToolManager.menuToolMap.get(HeaderListType.NEW_FILE)?.updateActive!()
+    }
+  }
 
   aboutToAppear(): void {
     const KVManager = new KVStore(getContext())
@@ -43,12 +51,10 @@ struct Index {
 
   build() {
     Row() {
-      MemoMenu({ memoViewModel: this.memoViewModel, headerData: this.menuToolManager.initMenuData(menuHeaderData) })
+      MemoMenu({ memoViewModel: this.memoViewModel, menuToolManager: this.menuToolManager })
         .width('40%')
       FileContent({
-        memoViewModel: this.memoViewModel,
-        editMenuData: this.menuToolManager.initMenuData(contentHeaderEditData),
-        readMenuData: this.menuToolManager.initMenuData(contentHeaderReadData)
+        memoViewModel: this.memoViewModel, menuToolManager: this.menuToolManager,
       })
         .width('60%')
     }

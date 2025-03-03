@@ -1,23 +1,20 @@
 import { MenuHeader } from '../MenuHeader'
-import { contentHeaderReadData, contentHeaderEditData } from '../../constant/MenuHeaderData'
 import { mViewModel } from '../../model/viewmodel/mViewModel'
-import { MemoMenuItem } from '../../model/MemoMenuItem'
+import { MenuToolManager } from '../../model/viewmodel/menuToolManager'
 
 @Component
 export struct FileContent {
   @ObjectLink memoViewModel: mViewModel
   private titleController: TextAreaController = new TextAreaController()
   private contentController: TextAreaController = new TextAreaController()
-  editMenuData: MemoMenuItem[] = []
-  readMenuData: MemoMenuItem[] = []
+  @ObjectLink menuToolManager: MenuToolManager
 
   build() {
     Column({ space: 15 }) {
-      if (this.memoViewModel.isEditMode) {
-        MenuHeader({ headerData: this.editMenuData })
-      } else {
-        MenuHeader({ headerData: this.readMenuData })
-      }
+      MenuHeader({
+        headerData: this.memoViewModel.isEditMode ? this.menuToolManager.editMenuData :
+        this.menuToolManager.readMenuData
+      })
 
       Divider()
         .strokeWidth(1)

@@ -5,6 +5,7 @@ export enum DirectionType {
   right
 }
 
+@Observed
 export class MemoMenuItem {
   id: number
   direction: DirectionType
@@ -13,6 +14,7 @@ export class MemoMenuItem {
   currentImageSrc: string | Resource
   isActive?: boolean = true
   onClick?: () => void
+  updateActive?: () => void
 
   constructor(param: MenuHeaderType) {
     this.id = param.id
@@ -21,9 +23,5 @@ export class MemoMenuItem {
     this.changedImageSrc = param.changedImageSrc
     this.isActive = param.isActive ?? true
     this.currentImageSrc = this.defaultImageSrc
-  }
-
-  changeActive() {
-    this.isActive = !this.isActive
   }
 }
