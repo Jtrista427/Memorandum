@@ -38,8 +38,11 @@ export struct FileContent {
           }
         })
         .onChange((value) => {
-          this.memoViewModel.editFile()
-          this.memoViewModel?.curFile && (this.memoViewModel.curFile.title = value)
+          // 新建的时候也会调用这个方法，所以需要判断是否是编辑模式下改变的
+          if (this.memoViewModel.isEditMode) {
+            this.memoViewModel.editFile()
+            this.memoViewModel?.curFile && (this.memoViewModel.curFile.title = value)
+          }
         })
       Row({ space: 5 }) {
         Row() {
@@ -71,8 +74,10 @@ export struct FileContent {
           }
         })
         .onChange((value) => {
-          this.memoViewModel.editFile()
-          this.memoViewModel?.curFile && (this.memoViewModel.curFile.content = value)
+          if (this.memoViewModel.isEditMode) {
+            this.memoViewModel.editFile()
+            this.memoViewModel?.curFile && (this.memoViewModel.curFile.content = value)
+          }
         })
     }
     .width('100%')

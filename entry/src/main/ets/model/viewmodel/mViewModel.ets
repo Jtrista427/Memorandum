@@ -11,21 +11,23 @@ export class mViewModel {
   isNewFile: boolean = false
 
   initKVStore(MemoKVInstance: MemoKVStore) {
-    this.MemoKVInstance = this.MemoKVInstance
+    this.MemoKVInstance = MemoKVInstance
   }
 
   // 新建一个备忘录
   newMemo() {
-    this.curFile = {
-      id: (this.fileList?.length ?? 0) + 1,
-      title: $r('app.string.title'),
-      content: '',
-      time: GetDatetime(Date.now()),
-      typeColor: $r('app.color.default_folder_color'),
-      folderName: $r('app.string.default'),
+    if (!this.isNewFile) {
+      this.curFile = {
+        id: (this.fileList?.length ?? 0) + 1,
+        title: $r('app.string.title'),
+        content: '',
+        time: GetDatetime(Date.now()),
+        typeColor: $r('app.color.default_folder_color'),
+        folderName: $r('app.string.default'),
+      }
+      this.fileList?.push(this.curFile)
+      this.isNewFile = true
     }
-    this.fileList?.push(this.curFile)
-    this.isNewFile = true
   }
 
   editFile() {

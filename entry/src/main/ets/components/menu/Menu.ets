@@ -54,6 +54,12 @@ export struct MemoMenu {
         bottom: 5
       })
       .onClick(() => {
+        if (this.memoViewModel) {
+          if (!this.memoViewModel.isNewFile) {
+            this.memoViewModel.saveFileToStore()
+          }
+          this.memoViewModel.curFile = file
+        }
       })
     }
     .margin({ bottom: 10 })
@@ -65,7 +71,7 @@ export struct MemoMenu {
 
   build() {
     Column({ space: 10 }) {
-      MenuHeader({ headerData: this.headerData })
+      MenuHeader({ headerData: this.menuToolManager.headerData })
       this.menuTitle()
 
       Row() {
