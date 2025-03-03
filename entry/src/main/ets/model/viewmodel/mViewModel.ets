@@ -10,6 +10,7 @@ export class mViewModel {
   isEditMode: boolean = false // 右侧面板是否进入编辑模式
   MemoKVInstance: MemoKVStore | undefined = undefined
   isNewFile: boolean = false
+  isExpand: boolean = false // 编辑界面是否展开
 
   initKVStore(MemoKVInstance: MemoKVStore) {
     this.MemoKVInstance = MemoKVInstance

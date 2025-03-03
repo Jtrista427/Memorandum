@@ -11,10 +11,11 @@ export struct FileContent {
 
   build() {
     Column({ space: 15 }) {
-      MenuHeader({
-        headerData: this.memoViewModel.isEditMode ? this.menuToolManager.editMenuData :
-        this.menuToolManager.readMenuData
-      })
+      if (this.memoViewModel.isEditMode) {
+        MenuHeader({ headerData: this.menuToolManager.editMenuData })
+      } else {
+        MenuHeader({ headerData: this.menuToolManager.readMenuData })
+      }
 
       Divider()
         .strokeWidth(1)

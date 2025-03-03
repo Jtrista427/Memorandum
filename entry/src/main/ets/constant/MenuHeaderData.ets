@@ -27,6 +27,7 @@ export const menuHeaderData: MenuHeaderType[] = [{
   direction: DirectionType.left,
   defaultImageSrc: $r('app.media.hide_menu'),
   changedImageSrc: $r('app.media.unfold_menu'),
+  isActive: false
 },
   {
     id: HeaderListType.NEW_FILE,
@@ -38,11 +39,13 @@ export const menuHeaderData: MenuHeaderType[] = [{
     direction: DirectionType.right,
     defaultImageSrc: $r('app.media.blocks'),
     changedImageSrc: $r('app.media.menu'),
+    isActive: false
   },
   {
     id: HeaderListType.MORE_MENU,
     direction: DirectionType.right,
     defaultImageSrc: $r('app.media.more_menu'),
+    isActive: false
   },
 ]
 
@@ -56,22 +59,26 @@ export const contentHeaderReadData: MenuHeaderType[] = [{
     id: HeaderListType.SHARE,
     direction: DirectionType.right,
     defaultImageSrc: $r('app.media.share'),
+    isActive: false
   },
   {
     id: HeaderListType.STAR,
     direction: DirectionType.right,
     defaultImageSrc: $r('app.media.star'),
     changedImageSrc: $r("app.media.yellow_star"),
+    isActive: false
   },
   {
     id: HeaderListType.DELETE,
     direction: DirectionType.right,
     defaultImageSrc: $r('app.media.delete'),
+    isActive: false
   },
   {
     id: HeaderListType.CONTENT_MORE_MENU,
     direction: DirectionType.right,
     defaultImageSrc: $r('app.media.more_menu'),
+    isActive: false
   },
 ]
 

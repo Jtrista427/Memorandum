@@ -43,6 +43,12 @@ export class MenuToolManager {
             break
           case HeaderListType.SAVE:
             this.mViewModel.saveFileToStore()
+          case HeaderListType.EXPAND:
+            this.mViewModel.isExpand = !this.mViewModel.isExpand
+            this.menuToolMap.get(id)!.currentImageSrc =
+              this.mViewModel.isExpand ? this.menuToolMap.get(id)!.changedImageSrc! :
+              this.menuToolMap.get(id)!.defaultImageSrc
+
         }
       }
     }
@@ -56,7 +62,7 @@ export class MenuToolManager {
             this.menuToolMap.get(id)!.isActive = !this.mViewModel.isNewFile
             break
           default:
-
+            break
         }
       }
     }

@@ -6,9 +6,7 @@ import { FileType } from '../constant/type'
 import { JSON } from '@kit.ArkTS';
 import { mViewModel } from '../model/viewmodel/mViewModel'
 import { MenuToolManager } from '../model/viewmodel/menuToolManager'
-import {
-  HeaderListType
-} from '../constant/MenuHeaderData'
+import { HeaderListType } from '../constant/MenuHeaderData'
 
 @Entry
 @Component
@@ -53,10 +51,11 @@ struct Index {
     Row() {
       MemoMenu({ memoViewModel: this.memoViewModel, menuToolManager: this.menuToolManager })
         .width('40%')
+        .visibility(this.memoViewModel.isExpand ? Visibility.None : Visibility.Visible)
       FileContent({
         memoViewModel: this.memoViewModel, menuToolManager: this.menuToolManager,
       })
-        .width('60%')
+        .layoutWeight(1)
     }
     .width('100%')
     .height('100%')
