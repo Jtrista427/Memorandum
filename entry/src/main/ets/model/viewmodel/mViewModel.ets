@@ -1,6 +1,7 @@
 import { FileType } from '../../constant/type'
 import { GetDatetime } from '../../utils/timeHandler'
 import { MemoKVStore } from '../../model/MemoKVStore'
+import { inputMethod } from '@kit.IMEKit';
 
 @Observed
 export class mViewModel {
@@ -30,12 +31,18 @@ export class mViewModel {
     }
   }
 
+  /**
+   * 是否对新建文件进行编辑
+   */
   editFile() {
     if (this.isNewFile) {
       this.isNewFile = false
     }
   }
 
+  /**
+   * 长期存储备忘录
+   */
   saveFileToStore() {
     const isExit = this.fileList.findIndex((item) => {
       return item.id === this.curFile!.id
@@ -48,5 +55,27 @@ export class mViewModel {
       this.fileList.push(this.curFile!)
     }
     this.MemoKVInstance?.put('mFileList', JSON.stringify(this.fileList))
+    this.isEditMode = false
+    // 关闭键盘
+    inputMethod.getController().stopInputSession()
+  }
+
+  /**
+   * 切换当前编辑的备忘录
+   * @param file
+   */
+  changeCurFile(file: FileType) {
+    // 点击切换的时候保存当前备忘录
+    if (!this.isNewFile) {
+      this.saveFileToStore()
+    }
+    // 如果切换的是 不同的备忘录，且新建的没有进行编辑，那么要删除新建的备忘录
+    if (this.curFile?.id !== file.id) {
+      if (this.isNewFile) {
+        this.isNewFile = false
+        this.fileList.pop()
+      }
+      this.curFile = file
+    }
   }
 }

@@ -42,7 +42,7 @@ export class MenuToolManager {
             this.mViewModel.newMemo()
             break
           case HeaderListType.SAVE:
-            this.mViewModel.newMemo()
+            this.mViewModel.saveFileToStore()
         }
       }
     }
@@ -53,9 +53,7 @@ export class MenuToolManager {
       if (this.mViewModel) {
         switch (id) {
           case HeaderListType.NEW_FILE:
-            if (this.mViewModel.isNewFile) {
-              this.menuToolMap.get(id)!.isActive = false
-            }
+            this.menuToolMap.get(id)!.isActive = !this.mViewModel.isNewFile
             break
           default:
 

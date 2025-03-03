@@ -1,19 +1,12 @@
 import { MenuHeader } from '../MenuHeader'
-import { HeaderListType, menuHeaderData } from '../../constant/MenuHeaderData'
 import { FileType } from '../../constant/type'
 import { mViewModel } from '../../model/viewmodel/mViewModel'
-import { MemoMenuItem } from '../../model/MemoMenuItem'
-import { ObservedArray } from '../../model/observedArray'
 import { MenuToolManager } from '../../model/viewmodel/menuToolManager'
 
 @Component
 export struct MemoMenu {
   @ObjectLink memoViewModel: mViewModel | undefined
-  @ObjectLink @Watch('onDataChange') menuToolManager: MenuToolManager
-
-  onDataChange() {
-    console.log('testttttdatachange menu', this.menuToolManager.menuToolMap.get(HeaderListType.NEW_FILE)!.isActive)
-  }
+  @ObjectLink menuToolManager: MenuToolManager
 
   @Builder
   menuTitle() {
@@ -60,12 +53,7 @@ export struct MemoMenu {
         bottom: 5
       })
       .onClick(() => {
-        if (this.memoViewModel) {
-          if (!this.memoViewModel.isNewFile) {
-            this.memoViewModel.saveFileToStore()
-          }
-          this.memoViewModel.curFile = file
-        }
+        this.memoViewModel?.changeCurFile(file)
       })
     }
     .margin({ bottom: 10 })
